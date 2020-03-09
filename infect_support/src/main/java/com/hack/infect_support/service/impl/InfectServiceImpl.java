@@ -69,10 +69,11 @@ public class InfectServiceImpl implements InfectService {
             JSONObject jsonObject1 = JSON.parseObject(n1 + "");
             ProvinceCut provinceCut = new ProvinceCut();
             provinceCut.setName(String.valueOf(jsonObject1.get("provinceShortName")));
-            provinceCut.setConfirmedCount(Integer.parseInt(String.valueOf(jsonObject1.get("confirmedCount"))));
+            provinceCut.setCurrentConfirmedCount(Integer.parseInt(String.valueOf(jsonObject1.get("currentConfirmedCount"))));
             provinceCuts.add(provinceCut);
         }
         String js = JSON.toJSONString(provinceCuts);
         return js;
     }
+//
 }
