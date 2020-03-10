@@ -3855,16 +3855,14 @@ document.getElementById("whole").onclick = function () {
     initEcharts("china", "中国");
 };
 
-initEcharts("china", "中国");
+initEcharts("全国", "中国");
 
 /*
-* 初始化echarts
+* 初始化地图
 * */
 function initEcharts(pName, Chinese_) {
-
-    console.log("pName:" + pName);
     var tmpSeriesData = [];
-    if (pName === 'china') {
+    if (pName === '全国') {
         //隐藏省份疫情数据
         var dom = document.getElementById("province-message");
         dom.style.display="none";
@@ -4031,6 +4029,35 @@ $("#datetimepicker1").datetimepicker("setDate", new Date() );  //设置显示默
 //------------------------------------------------------------------------------//
 
 /*
+* 设置全国数字疫情
+* */
+initNationalDigital();
+function initNationalDigital(){
+    $.ajax({
+        type:'get',
+        url:'./local/whole-count.json',
+        dataType:'json',
+        success:function(data){
+            document.getElementById("definite-count-content").innerHTML=data["currentConfirmedCount"];
+            document.getElementById("suspected-count-content").innerHTML=data["suspectedCount"];
+            document.getElementById("severe-count-content").innerHTML=data["seriousCount"];
+            document.getElementById("sum-definite-count-content").innerHTML=data["confirmedCount"];
+            document.getElementById("sum-cure-count-content").innerHTML=data["curedCount"];
+            document.getElementById("sum-dead-count-content").innerHTML=data["deadCount"];
+
+            document.getElementById("definite-count-change").innerHTML=data["currentConfirmedIncr"]>0?"+"+data["currentConfirmedIncr"]:data["currentConfirmedIncr"];
+            document.getElementById("suspected-count-change").innerHTML=data["suspectedIncr"]>0?"+"+data["suspectedIncr"]:data["suspectedIncr"];
+            document.getElementById("severe-count-change").innerHTML=data["seriousIncr"]>0?"+"+data["seriousIncr"]:data["seriousIncr"];
+            document.getElementById("sum-definite-count-change").innerHTML=data["confirmedIncr"]>0?"+"+data["confirmedIncr"]:data["confirmedIncr"];
+            document.getElementById("sum-cure-count-change").innerHTML=data["curedIncr"]>0?"+"+data["curedIncr"]:data["curedIncr"];
+            document.getElementById("sum-dead-count-change").innerHTML=data["deadIncr"]>0?"+"+data["deadIncr"]:data["deadIncr"];
+        }
+    });
+}
+
+//-----------------------------------------------------------------------------------------//
+
+/*
 * 地图现有确诊按钮
 * */
 document.getElementById("definite-bt").onclick=function () {
@@ -4190,3 +4217,5 @@ function initCureAndDeadLine() {
 }
 
 //-----------------------------------------------------------------------------------------------//
+
+
