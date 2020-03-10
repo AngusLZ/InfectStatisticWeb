@@ -86,7 +86,7 @@ public class InfectMainController {
     }
 
     @ApiOperation(value = "选择不同图标所需要的数据")
-    @PostMapping("/ImgInfo")
+    @PostMapping("/imgInfo")
     public String ImgInfo(@RequestBody String info){
         String infoo = infectService.ImgInfo(info);
         return infoo;
