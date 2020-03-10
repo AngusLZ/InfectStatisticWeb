@@ -3975,8 +3975,7 @@ function showProvince(pName, Chinese_) {
 
 // 加载对应的JS
 function loadBdScript(scriptId, url, callback) {
-    //
-    initLine();
+    initNewDefiniteLine();
     var script = document.createElement("script");
     script.type = "text/javascript";
     if (script.readyState) {  //IE
@@ -3996,14 +3995,16 @@ function loadBdScript(scriptId, url, callback) {
     document.getElementsByTagName("head")[0].appendChild(script);
 };
 
-//加载图表
-function initLine() {
+/*
+* 新增确诊曲线
+* */
+function initNewDefiniteLine() {
     //获取给折线图准备的容器id
     var dom = document.getElementById("chart-line");
     var myChart = echarts.init(dom);
     var app = {};
     option = null;
-    app.title = '广告统计';
+    app.title = '新增确诊';
 
     var colors = ['#5793f3', '#d14a61', '#675bba'];
 
@@ -4017,8 +4018,73 @@ function initLine() {
         },
         series: [{
             data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: 'line'
+            type: 'line',
+            smooth: true
         }]
     };
+
+
+    myChart.setOption(option);
+}
+
+/*
+* 累计确诊曲线
+* */
+function initSumDefiniteLine() {
+    //获取给折线图准备的容器id
+    var dom = document.getElementById("chart-line");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    app.title = '累计确诊';
+
+    var colors = ['#5793f3', '#d14a61', '#675bba'];
+
+    option = {
+        xAxis: {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line',
+            smooth: true
+        }]
+    };
+
+    myChart.setOption(option);
+}
+
+/*
+* 累计治愈/死亡曲线
+* */
+function initCureAndDeadLine() {
+    //获取给折线图准备的容器id
+    var dom = document.getElementById("chart-line");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = null;
+    app.title = '累计治愈/死亡';
+
+    var colors = ['#5793f3', '#d14a61', '#675bba'];
+
+    option = {
+        xAxis: {
+            type: 'category',
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line',
+            smooth: true
+        }]
+    };
+
     myChart.setOption(option);
 }

@@ -22,34 +22,52 @@
         <div>
             <table class="table">
                 <tr>
-                    <td>Tanmay</td>
-                    <td>Bangalore</td>
-                    <td>Bangalore</td>
+                    <td><p class="type-title">现有确诊</p></td>
+                    <td><p class="type-title">现有疑似</p></td>
+                    <td><p class="type-title">现有重症</p></td>
                 </tr>
                 <tr>
-                    <td>Sachin</td>
-                    <td>Mumbai</td>
-                    <td>Bangalore</td>
+                    <td><p class="count-content" id="definite-count-content">123</p></td>
+                    <td><p class="count-content" id="suspected-count-content">123</p></td>
+                    <td><p class="count-content" id="severe-count-content">123</p></td>
                 </tr>
                 <tr>
-                    <td>Sachin</td>
-                    <td>Mumbai</td>
-                    <td>Bangalore</td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="definite-count-change">123</span>
+                    </td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="suspected-count-change">123</span>
+                    </td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="severe-count-change">123</span>
+                    </td>
                 </tr>
                 <tr>
-                    <td>Sachin</td>
-                    <td>Mumbai</td>
-                    <td>Bangalore</td>
+                    <td><p class="type-title">累计确诊</p></td>
+                    <td><p class="type-title">累计治愈</p></td>
+                    <td><p class="type-title">累计死亡</p></td>
                 </tr>
                 <tr>
-                    <td>Sachin</td>
-                    <td>Mumbai</td>
-                    <td>Bangalore</td>
+                    <td><p class="count-content" id="sum-definite-count-content">123</p></td>
+                    <td><p class="count-content" id="sum-cure-count-content">123</p></td>
+                    <td><p class="count-content" id="sum-dead-count-content">123</p></td>
                 </tr>
                 <tr>
-                    <td>Sachin</td>
-                    <td>Mumbai</td>
-                    <td>Bangalore</td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="sum-definite-count-change">123</span>
+                    </td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="sum-cure-count-change">123</span>
+                    </td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="sum-dead-count-change">123</span>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -58,14 +76,28 @@
         <div>
             <div>
                 <ul class="nav nav-pills">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">SVN</a></li>
+                    <li class="active" id="definite-li"><a href="#">现有确诊</a></li>
+                    <li id="sum-definite-li"><a href="#">累计确诊</a></li>
                 </ul>
             </div>
             <button id="back">返回全国</button>
-            <div id="china-map"></div>
-            <div id="chart-line" style="width:96%;height:500px;margin:1% 2%;">
 
+            <div id="china-map">
+
+            </div>
+
+            <div>
+                <div id="chart-line">
+
+                </div>
+
+                <div>
+                    <ul class="nav nav-pills" id="echart-change-button">
+                        <li class="active"><a href="#">新增确诊</a></li>
+                        <li><a href="#">累计确诊</a></li>
+                        <li><a href="#">累计治愈/死亡</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -79,7 +111,7 @@
 
 
 <!-- 加载疫情地图 -->
-<script type="text/javascript" src="./js/map/impl.js"></script>
+<script type="text/javascript" src="js/map/index.js"></script>
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
 <script src="https://code.jquery.com/jquery.js"></script>
 <!-- 包括所有已编译的插件 -->
