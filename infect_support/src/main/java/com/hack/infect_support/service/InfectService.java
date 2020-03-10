@@ -14,4 +14,6 @@ public interface InfectService {
     String getSpecialProvince(String info);
 
     String getCities(String info);
+
+    String ImgInfo(String info);
 }

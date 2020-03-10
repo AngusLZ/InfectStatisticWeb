@@ -170,4 +170,36 @@ public class InfectServiceImpl implements InfectService {
 
         return infoo;
     }
+//    获得从1月23到今日的确证人数
+    public String getCurrentConfirmedCountfromBefore(String name){
+        return null;
+    }
+//    获得从1月23到今日的疑似人数
+    public String getSuspectedCountFromBefore(String name){
+        return null;
+    }
+//    获得从1月23到今日的治愈人数
+    public String getCuredCountFromBefore(String name){
+        return null;
+    }
+//    获得从1月23到今日的死亡人数
+    public String getDeadCountFromBefore(String name){
+        return null;
+    }
+//    上面四个的汇总
+    public String ImgInfo(String info){
+        JSONObject object = JSON.parseObject(info);
+        String name = String.valueOf(object.get("name"));
+        String type = String.valueOf(object.get("type"));
+        String result = null;
+        if (type.equals("currentConfirmedCount"))
+            result = getCurrentConfirmedCountfromBefore(name);
+        if (type.equals("suspectedCount"))
+            result = getSuspectedCountFromBefore(name);
+        if (type.equals("curedCount"))
+            result = getCuredCountFromBefore(name);
+        if (type.equals("deadCount"))
+            result = getDeadCountFromBefore("deadCount");
+        return result;
+    }
 }
