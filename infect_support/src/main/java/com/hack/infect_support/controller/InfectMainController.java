@@ -85,28 +85,11 @@ public class InfectMainController {
         return infoo;
     }
 
-    @ApiOperation(value = "发送确证人数从以前到现在的全部数据")
-    @GetMapping("/provincesConfirmed")
-    public String provincesConfirmed(@RequestParam("name")String name){
-        return null;
-    }
-
-    @ApiOperation(value = "发送疑似人数从以前到现在的全部数据")
-    @GetMapping("/provincesSuspected")
-    public String provincesSuspected(@RequestParam("name")String name){
-        return null;
-    }
-
-    @ApiOperation(value = "发送治愈人数从以前到现在的全部数据")
-    @GetMapping("/provincesCured")
-    public String provincesCured(@RequestParam("name")String name){
-        return null;
-    }
-
-    @ApiOperation(value = "发送死亡人数从以前到现在的全部数据")
-    @GetMapping("/provincesDead")
-    public String provincesDead(@RequestParam("name")String name){
-        return null;
+    @ApiOperation(value = "选择不同图标所需要的数据")
+    @PostMapping("/ImgInfo")
+    public String ImgInfo(@RequestBody String info){
+        String infoo = infectService.ImgInfo(info);
+        return infoo;
     }
 
 }

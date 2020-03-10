@@ -44,3 +44,8 @@ InfectStatistic-example.iml
 *.class
 *.DS_Store
 test
+
+.mvn
+
+mvnw
+mvnw.cmd
