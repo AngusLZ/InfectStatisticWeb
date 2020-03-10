@@ -10,13 +10,17 @@ import java.util.List;
  */
 
 public class Province extends ProvinceCut {
+//    确证人数
+    private int confirmedCount;
 //    疑似病例
     private int suspectedCount;
 //    治愈病例
     private int curedCount;
 //    死亡病例
     private int deadCount;
-//    较昨日的确证人数
+//    相比昨天的现存确证人数
+    private int currentConfirmedIncr;
+//    较昨日的累计确证人数
     private int confirmedIncr;
 //    较昨日的疑似病例
     private int suspectedIncr;
@@ -26,6 +30,22 @@ public class Province extends ProvinceCut {
     private int deadIncr;
     //
     private List<City> cityList;
+
+    public int getConfirmedCount() {
+        return confirmedCount;
+    }
+
+    public void setConfirmedCount(int confirmedCount) {
+        this.confirmedCount = confirmedCount;
+    }
+
+    public int getCurrentConfirmedIncr() {
+        return currentConfirmedIncr;
+    }
+
+    public void setCurrentConfirmedIncr(int currentConfirmedIncr) {
+        this.currentConfirmedIncr = currentConfirmedIncr;
+    }
 
     public List<City> getCityList() {
         return cityList;
@@ -89,5 +109,19 @@ public class Province extends ProvinceCut {
 
     public void setDeadIncr(int deadIncr) {
         this.deadIncr = deadIncr;
+    }
+
+    @Override
+    public String toString() {
+        return "Province{" +
+                "suspectedCount=" + suspectedCount +
+                ", curedCount=" + curedCount +
+                ", deadCount=" + deadCount +
+                ", confirmedIncr=" + confirmedIncr +
+                ", suspectedIncr=" + suspectedIncr +
+                ", curedIncr=" + curedIncr +
+                ", deadIncr=" + deadIncr +
+                ", cityList=" + cityList +
+                '}';
     }
 }

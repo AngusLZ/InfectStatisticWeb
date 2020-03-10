@@ -4,6 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hack.infect_support.dto.Country;
+import com.hack.infect_support.dto.ProvinceCut;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author 会飞的大野鸡
@@ -40,5 +44,15 @@ public class Complete {
         country.setSuspectedCount((Integer) jsonObject2.get("suspectedCount"));
         country.setSuspectedIncr((Integer) jsonObject2.get("suspectedIncr"));
         return country;
+    }
+
+    public List<ProvinceCut> setProvinces(String name , String date){
+        String httpUrl = "http://api.tianapi.com/txapi/ncov/index";
+        String jsonResult = new Info().request(httpUrl , "key=c4ca7b7ef10ab54850c72e72e7693567");
+
+
+
+        List<ProvinceCut> provinceCuts = new LinkedList<>();
+        return provinceCuts;
     }
 }

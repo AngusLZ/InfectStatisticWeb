@@ -127,4 +127,22 @@ public class Country {
     public void setSeriousIncr(int seriousIncr) {
         this.seriousIncr = seriousIncr;
     }
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "currentConfirmedCount=" + currentConfirmedCount +
+                ", confirmedCount=" + confirmedCount +
+                ", suspectedCount=" + suspectedCount +
+                ", curedCount=" + curedCount +
+                ", deadCount=" + deadCount +
+                ", seriousCount=" + seriousCount +
+                ", currentConfirmedIncr=" + currentConfirmedIncr +
+                ", confirmedIncr=" + confirmedIncr +
+                ", suspectedIncr=" + suspectedIncr +
+                ", curedIncr=" + curedIncr +
+                ", deadIncr=" + deadIncr +
+                ", seriousIncr=" + seriousIncr +
+                '}';
+    }
 }

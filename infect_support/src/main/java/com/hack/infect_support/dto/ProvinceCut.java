@@ -9,8 +9,17 @@ package com.hack.infect_support.dto;
 public class ProvinceCut {
 //    省的名称
     private String name;
-//    确证人数
-    private int confirmedCount;
+
+//    现存确证人数
+    private int currentConfirmedCount;
+
+    public int getCurrentConfirmedCount() {
+        return currentConfirmedCount;
+    }
+
+    public void setCurrentConfirmedCount(int currentConfirmedCount) {
+        this.currentConfirmedCount = currentConfirmedCount;
+    }
 
     public String getName() {
         return name;
@@ -20,11 +29,5 @@ public class ProvinceCut {
         this.name = name;
     }
 
-    public int getConfirmedCount() {
-        return confirmedCount;
-    }
 
-    public void setConfirmedCount(int confirmedCount) {
-        this.confirmedCount = confirmedCount;
-    }
 }

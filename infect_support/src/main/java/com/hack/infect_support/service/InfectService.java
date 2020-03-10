@@ -10,4 +10,8 @@ public interface InfectService {
     String getCountry(String date);
 
     String getAllProvince(String date);
+
+    String getSpecialProvince(String info);
+
+    String getCities(String info);
 }
