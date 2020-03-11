@@ -282,6 +282,7 @@ public class InfectServiceImpl implements InfectService {
 
             JSONObject jsonObject2 = JSON.parseObject(n2 + "");
             ImgInfo imgInfo = new ImgInfo();
+            imgInfo.setDate(now);
             imgInfo.setCurrentConfirmedCount((Integer) jsonObject2.get("currentConfirmedCount"));
             imgInfo.setCuredCount((Integer) jsonObject2.get("curedCount"));
             imgInfo.setSuspectedCount((Integer) jsonObject2.get("suspectedCount"));
