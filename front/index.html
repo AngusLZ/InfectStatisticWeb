@@ -22,7 +22,8 @@
 <body>
 
 <div id="wrap">
-    <div id="header" style="background: #d619c6">
+
+    <div id="header" style="background: #d619c6;border-radius: 10px;">
 
         <div class='input-group date' id='datetimepicker1'>
 
@@ -50,7 +51,7 @@
     <div id="main">
 
         <!-- 数字疫情板块 -->
-        <div style="background: #d9edf7">
+        <div style="background: #d9edf7;border-radius: 10px;margin-top: 15px">
 
             <table class="table">
                 <tr>
@@ -105,7 +106,7 @@
         </div>
 
         <!-- 地图疫情板块 -->
-        <div style="background: #d0e9c6" id="centre">
+        <div style="background: #d0e9c6;padding:10px 5px;border-radius: 10px" id="centre">
 
             <div>
                 <ul class="nav nav-pills">
@@ -122,26 +123,30 @@
         </div>
 
         <!-- 省份数字疫情板块 -->
-        <div style="background: #e7c3c3;" id="province-message">
+        <div style="background: #e7c3c3;padding: 5px;border-radius: 10px;margin-top: 15px" id="province-message">
 
-            <div class='input-group date' id='datetimepicker2'>
+            <div style="background: #d619c6;height: 70px;padding: 5px;border-radius: 10px;">
 
-                <table>
-                    <tr style="text-align: center">
-                        <td>
-                            <p style="width:45px">截至</p>
-                        </td>
-                        <td>
-                            <input type='text' class="form-control" style="height: 30px;width: 100px" />
-                        </td>
-                        <td>
-                            <span class="input-group-addon" style="height: 30px;margin-top: 15px"><span class="glyphicon glyphicon-calendar"></span></span>
-                        </td>
-                        <td>
-                            <p style="width: 130px;" id="province-name">XX疫情数据</p>
-                        </td>
-                    </tr>
-                </table>
+                <div class='input-group date' id='datetimepicker2'>
+
+                    <table>
+                        <tr style="text-align: center">
+                            <td>
+                                <p style="width:45px">截至</p>
+                            </td>
+                            <td>
+                                <input type='text' class="form-control" style="height: 30px;width: 100px" />
+                            </td>
+                            <td>
+                                <span class="input-group-addon" style="height: 30px;margin-top: 15px"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </td>
+                            <td>
+                                <p style="width: 130px;" id="province-name">XX疫情数据</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
             </div>
 
             <table class="table">
@@ -179,7 +184,7 @@
         </div>
 
         <!-- 图标疫情板块 -->
-        <div style="background: #66afe9">
+        <div style="background: #66afe9;padding: 10px 5px;border-radius: 10px;margin-top: 15px">
 
             <div id="chart-line">
 

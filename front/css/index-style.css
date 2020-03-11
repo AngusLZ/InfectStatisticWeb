@@ -15,7 +15,8 @@ body{
 }
 
 #header{
-    height: 60px;
+    height: 70px;
+    padding: 5px;
 }
 
 .input-group.date p{
@@ -35,11 +36,11 @@ body{
 }
 
 .count-content{
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .count-change{
-    font-size: 12px;
+    font-size: 10px;
 }
 
 #definite-count-content{

@@ -1,4 +1,11 @@
-
+$.ajax({
+    type:'get',
+    url:'http://localhost:8080/start',
+    dataType:'json',
+    success:function(result){
+        //
+    }
+});
 
 
 var myChart = echarts.init(document.getElementById('china-map'));
@@ -189,11 +196,10 @@ document.getElementById("whole").onclick = function () {
     initEcharts("china", "中国");
 };
 
-initEcharts("china", "中国");
-
 /*
 * 初始化地图
 * */
+initEcharts("china", "中国");
 function initEcharts(pName, Chinese_,type=1) {
     var tmpSeriesData = [];
     if (pName === 'china') {
