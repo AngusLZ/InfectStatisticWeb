@@ -1,0 +1,117 @@
+html,body{
+    margin:0;
+    padding:0;
+    background: #f7f7f7;
+}
+
+body{
+    min-width:800px;
+}
+
+#wrap{
+    background: #ffffff;
+    margin: 0 auto;
+    width: 900px;
+}
+
+#header{
+    height: 60px;
+}
+
+.input-group.date p{
+    font-size: 20px;
+    margin-top: 15px;
+    height: 30px;
+}
+
+#china-map {
+    width: 800px;
+    height: 500px;
+    margin: auto;
+}
+
+.type-title{
+    font-size: 20px;
+}
+
+.count-content{
+    font-size: 12px;
+}
+
+.count-change{
+    font-size: 12px;
+}
+
+#definite-count-content{
+
+}
+
+#suspected-count-content{
+
+}
+
+#severe-count-content{
+
+}
+
+#sum-definit-count-change{
+
+}
+
+#sum-cure-count-change{
+
+}
+
+#sum-dead-count-change{
+
+}
+
+.table{
+    margin: 0;
+    padding: 0;
+}
+
+.table tr td{
+    text-align: center;
+}
+
+.nav.nav-pills{
+    display:table;
+    margin:0px auto;
+    text-align: center;
+}
+
+#definite-li{
+    width: 440px;
+}
+
+#sum-definite-li{
+    width: 440px;
+}
+
+#chart-line{
+    width: 800px;
+    height: 400px;
+    margin: auto;
+}
+
+#echart-change-button li{
+    width: 250px;
+    float:left;
+    *float:none;
+    *display:inline;
+    *zoom:1;
+    margin-right:5px;
+}
+
+#whole{
+    margin: 20px 0 0 10px;
+    color: cornflowerblue;
+    background: none;
+    transform:rotate(-30deg);
+}
+
+
+#footer{
+    text-align: center;
+}

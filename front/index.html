@@ -1,0 +1,212 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/index-style.css">
+    <script type="text/javascript" src="js/echarts.min.js"></script>
+    <script type="text/javascript" src="js/map/china.js"></script>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.css">
+    <script src="js/jquery-3.2.1.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap-datetimepicker.js"></script>
+    <script src="js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="js/locales/bootstrap-datetimepicker.bn.js"></script>
+</head>
+<body>
+
+<div id="wrap">
+    <div id="header" style="background: #d619c6">
+
+        <div class='input-group date' id='datetimepicker1'>
+
+            <table>
+                <tr style="text-align: center">
+                    <td>
+                        <p style="width:45px">截至</p>
+                    </td>
+                    <td>
+                        <input type='text' class="form-control" style="height: 30px;width: 100px" />
+                    </td>
+                    <td>
+                        <span class="input-group-addon" style="height: 30px;margin-top: 15px"><span class="glyphicon glyphicon-calendar"></span></span>
+                    </td>
+                    <td>
+                        <p style="width: 130px;">全国疫情数据</p>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+
+    <div id="main">
+
+        <!-- 数字疫情板块 -->
+        <div style="background: #d9edf7">
+
+            <table class="table">
+                <tr>
+                    <td><p class="type-title">现有确诊</p></td>
+                    <td><p class="type-title">现有疑似</p></td>
+                    <td><p class="type-title">现有重症</p></td>
+                </tr>
+                <tr>
+                    <td><p class="count-content" id="definite-count-content">123</p></td>
+                    <td><p class="count-content" id="suspected-count-content">123</p></td>
+                    <td><p class="count-content" id="severe-count-content">123</p></td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="definite-count-change">123</span>
+                    </td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="suspected-count-change">123</span>
+                    </td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="severe-count-change">123</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><p class="type-title">累计确诊</p></td>
+                    <td><p class="type-title">累计治愈</p></td>
+                    <td><p class="type-title">累计死亡</p></td>
+                </tr>
+                <tr>
+                    <td><p class="count-content" id="sum-definite-count-content">123</p></td>
+                    <td><p class="count-content" id="sum-cure-count-content">123</p></td>
+                    <td><p class="count-content" id="sum-dead-count-content">123</p></td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="sum-definite-count-change">123</span>
+                    </td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="sum-cure-count-change">123</span>
+                    </td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="sum-dead-count-change">123</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 地图疫情板块 -->
+        <div style="background: #d0e9c6" id="centre">
+
+            <div>
+                <ul class="nav nav-pills">
+                    <li class="active" id="definite-li"><a href="javascript:void(0)" id="definite-bt" data-toggle="tab">现有确诊</a></li>
+                    <li id="sum-definite-li"><a href="javascript:void(0)" id="sum-definite-bt" data-toggle="tab">累计确诊</a></li>
+                </ul>
+            </div>
+
+            <button id="whole">返回全国</button>
+
+            <div id="china-map">
+
+            </div>
+        </div>
+
+        <!-- 省份数字疫情板块 -->
+        <div style="background: #e7c3c3;" id="province-message">
+
+            <div class='input-group date' id='datetimepicker2'>
+
+                <table>
+                    <tr style="text-align: center">
+                        <td>
+                            <p style="width:45px">截至</p>
+                        </td>
+                        <td>
+                            <input type='text' class="form-control" style="height: 30px;width: 100px" />
+                        </td>
+                        <td>
+                            <span class="input-group-addon" style="height: 30px;margin-top: 15px"><span class="glyphicon glyphicon-calendar"></span></span>
+                        </td>
+                        <td>
+                            <p style="width: 130px;" id="province-name">XX疫情数据</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <table class="table">
+                <tr>
+                    <td><p class="type-title">现有确诊</p></td>
+                    <td><p class="type-title">现有疑似</p></td>
+                    <td><p class="type-title">累计治愈</p></td>
+                    <td><p class="type-title">累计死亡</p></td>
+                </tr>
+                <tr>
+                    <td><p class="count-content" id="province-definite-count-content">123</p></td>
+                    <td><p class="count-content" id="province-suspected-count-content">123</p></td>
+                    <td><p class="count-content" id="province-cure-count-content">123</p></td>
+                    <td><p class="count-content" id="province-dead-count-content">123</p></td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="province-definite-count-change">123</span>
+                    </td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="province-suspected-count-change">123</span>
+                    </td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="province-care-count-change">123</span>
+                    </td>
+                    <td>
+                        <span class="count-change">昨日</span>
+                        <span class="count-change" id="province-dead-count-change">123</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 图标疫情板块 -->
+        <div style="background: #66afe9">
+
+            <div id="chart-line">
+
+            </div>
+
+            <div>
+                <ul class="nav nav-pills" id="echart-change-button">
+                    <li class="active"><a href="javascript:void(0)" id="echart-definite-bt" data-toggle="tab">新增确诊</a></li>
+                    <li><a href="javascript:void(0)" id="echart-sum-definite-bt" data-toggle="tab">累计确诊</a></li>
+                    <li><a href="javascript:void(0)" id="echart-cure-dead-bt" data-toggle="tab">累计治愈/死亡</a></li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="footer">
+        <p>Copyright &copy; 221701414 221701431 All rights reserved</p>
+    </div>
+</div>
+
+
+<!-- 加载疫情地图 -->
+<script type="text/javascript" src="js/map/index.js"></script>
+<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- 包括所有已编译的插件 -->
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
