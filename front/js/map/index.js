@@ -2,11 +2,13 @@ $.ajax({
     type:'get',
     url:'http://localhost:8080/start',
     dataType:'json',
-    success:function(result){
-        //
+    async:false,
+    success:function(result) {
+        $('#loading').css("visibility", "hidden");
     }
 });
 
+$('.loading').css("visibility", "hidden");
 
 var myChart = echarts.init(document.getElementById('china-map'));
 
