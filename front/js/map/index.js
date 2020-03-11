@@ -180,7 +180,7 @@ var proPieces = [
 * */
 var flag=true;
 
-var province="湖北";
+var province="全国";
 
 /*
 * 返回全国按钮注册点击事件
@@ -510,7 +510,7 @@ function initProvinceDigital(){
         data: JSON.stringify(jsonData),
         dataType: "json",
         success: function(result) {
-            document.getElementById("province-definite-count-content").innerHTML=result["confirmedCount"];
+            document.getElementById("province-definite-count-content").innerHTML=result["currentConfirmedCount"];
             document.getElementById("province-suspected-count-content").innerHTML=result["suspectedCount"];
             document.getElementById("province-cure-count-content").innerHTML=result["curedCount"];
             document.getElementById("province-dead-count-content").innerHTML=result["deadCount"];
@@ -550,6 +550,7 @@ document.getElementById("echart-cure-dead-bt").onclick=function () {
 /*
 * 新增确诊曲线
 * */
+initNewDefiniteLine();
 function initNewDefiniteLine() {
     //获取给折线图准备的容器id
     var dom = document.getElementById("chart-line");
@@ -557,31 +558,54 @@ function initNewDefiniteLine() {
     var myChart = echarts.init(dom);
     myChart.clear();
 
-    var option = {
-        title: {
-            text: '新增确诊',
-            left: 'center'
-        },
-        xAxis: {
-            type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [{
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: 'line',
-            smooth: true
-        }]
-    };
-
-
-    myChart.setOption(option);
+    var jsonData = {"name": province};
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        async:false,
+        url: "http://localhost:8080/imgInfo",
+        data: JSON.stringify(jsonData),
+        dataType: "json",
+        success: function(result) {
+            var arrayX=[];
+            var arrayY=[];
+            for(i=9;i>=0;i--){
+                arrayX.push(result[i].date);
+                arrayY.push(result[i].currentConfirmedCount);
+            }
+            var option = {
+                title: {
+                    text: '新增确诊',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                xAxis: {
+                    type: 'category',
+                    axisLabel:{
+                        interval:0,
+                        rotate:40
+                    },
+                    data: arrayX,
+                },
+                yAxis: {
+                    type: 'value',
+                },
+                series: [{
+                    name:"新增确诊",
+                    data: arrayY,
+                    type: 'line',
+                    smooth: true
+                }]
+            };
+            myChart.setOption(option);
+        }
+    });
 }
 
 /*
-* 累计确诊曲线
+* 新增疑似曲线
 * */
 function initSumDefiniteLine() {
     //获取给折线图准备的容器id
@@ -590,27 +614,50 @@ function initSumDefiniteLine() {
     var myChart = echarts.init(dom);
     myChart.clear();
 
-    var option = {
-        title: {
-            text: '累计确诊',
-            left: 'center'
-        },
-        xAxis: {
-            type: 'category',
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [{
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-            type: 'line',
-            smooth: true
-        }]
-    };
-
-
-    myChart.setOption(option);
+    var jsonData = {"name": province};
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        async:false,
+        url: "http://localhost:8080/imgInfo",
+        data: JSON.stringify(jsonData),
+        dataType: "json",
+        success: function(result) {
+            var arrayX=[];
+            var arrayY=[];
+            for(i=9;i>=0;i--){
+                arrayX.push(result[i].date);
+                arrayY.push(result[i].suspectedCount);
+            }
+            var option = {
+                title: {
+                    text: '新增疑似',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                xAxis: {
+                    type: 'category',
+                    axisLabel:{
+                        interval:0,
+                        rotate:40
+                    },
+                    data: arrayX,
+                },
+                yAxis: {
+                    type: 'value',
+                },
+                series: [{
+                    name:"新增疑似",
+                    data: arrayY,
+                    type: 'line',
+                    smooth: true
+                }]
+            };
+            myChart.setOption(option);
+        }
+    });
 }
 
 /*
@@ -622,49 +669,68 @@ function initCureAndDeadLine() {
     var myChart = echarts.init(dom);
     myChart.clear();
 
-    var option = {
-        title: {
-            text: '折线图堆叠'
-        },
-        tooltip: {
-            trigger: 'axis'
-        },
-        legend: {
-            data: ['邮件营销', '联盟广告']
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
-        },
-        yAxis: {
-            type: 'value'
-        },
-        series: [
-            {
-                name: '邮件营销',
-                type: 'line',
-                smooth: true,
-                stack: '总量',
-                data: [120, 132, 101, 134, 90, 230, 210]
-            },
-            {
-                name: '联盟广告',
-                type: 'line',
-                smooth: true,
-                stack: '总量',
-                data: [220, 182, 191, 234, 290, 330, 310]
+    var jsonData = {"name": province};
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        async:false,
+        url: "http://localhost:8080/imgInfo",
+        data: JSON.stringify(jsonData),
+        dataType: "json",
+        success: function(result) {
+            var arrayX=[];
+            var arrayYCure=[];
+            var arrayYDead=[];
+            for(i=9;i>=0;i--){
+                arrayX.push(result[i].date);
+                arrayYCure.push(result[i].curedCount);
+                arrayYDead.push(result[i].deadCount);
             }
-        ]
-    };
+            var option = {
+                title: {
+                    text: '累计治愈/死亡'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    axisLabel: {
+                        interval:0,
+                        rotate:40
+                    },
+                    boundaryGap: false,
+                    data: arrayX
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        name: '累计治愈',
+                        type: 'line',
+                        smooth: true,
+                        data: arrayYCure
+                    },
+                    {
+                        name: '累计死亡',
+                        type: 'line',
+                        smooth: true,
+                        data: arrayYDead
+                    }
+                ]
+            };
+            myChart.setOption(option);
+        }
+    });
 
-    myChart.setOption(option);
+
 }
 
 //-----------------------------------------------------------------------------------------------//
