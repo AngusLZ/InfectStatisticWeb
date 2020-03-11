@@ -3662,21 +3662,6 @@ var data=[
     }
 ];
 
-// var url = "./js/map/province.json"/*json文件url，本地的就写本地的位置，如果是服务器的就写服务器的路径*/
-// var request = new XMLHttpRequest();
-// request.open("get", url, false);/*设置请求方法与路径*/
-// request.send();/*不发送数据到服务器*/
-// request.onreadystatechange = function () {/*XHR对象获取到返回信息后执行*/
-//     if (request.readyState === 4 && request.status === 200) {/*返回状态为200，即为数据获取成功*/
-//         data = JSON.parse(request.responseText);
-//         //console.log(data);
-//     }else{
-//
-//     }
-// }
-
-
-
 var myChart = echarts.init(document.getElementById('china-map'));
 
 var provinces = ['shanghai', 'hebei', 'shanxi', 'neimenggu', 'liaoning', 'jilin', 'heilongjiang', 'jiangsu', 'zhejiang', 'anhui', 'fujian', 'jiangxi', 'shandong', 'henan', 'hubei', 'hunan', 'guangdong', 'guangxi', 'hainan', 'sichuan', 'guizhou', 'yunnan', 'xizang', 'shanxi1', 'gansu', 'qinghai', 'ningxia', 'xinjiang', 'beijing', 'tianjin', 'chongqing', 'xianggang', 'aomen'];
@@ -3848,6 +3833,8 @@ var proPieces = [
     {min: 1, max: 9, label: '确诊1-9人', color: '#f5bba7'},
 ];
 
+var province="湖北";
+
 /*
 * 返回全国按钮注册点击事件
 * */
@@ -3855,14 +3842,14 @@ document.getElementById("whole").onclick = function () {
     initEcharts("china", "中国");
 };
 
-initEcharts("全国", "中国");
+initEcharts("china", "中国");
 
 /*
 * 初始化地图
 * */
 function initEcharts(pName, Chinese_) {
     var tmpSeriesData = [];
-    if (pName === '全国') {
+    if (pName === 'china') {
         //隐藏省份疫情数据
         var dom = document.getElementById("province-message");
         dom.style.display="none";
@@ -3956,7 +3943,7 @@ function initEcharts(pName, Chinese_) {
         myChart.on('click', function (param) {
             //在本页面跳转
             window.location.hash='#centre';
-            console.log(param.name);
+
             //遍历取到provincesText 中的下标  去拿到对应的省js
             for (var i = 0; i < provincesText.length; i++) {
                 if (param.name === provincesText[i]) {
@@ -3980,6 +3967,9 @@ function showProvince(pName, Chinese_) {
     //显示被隐藏的疫情数据
     var dom = document.getElementById("province-message");
     dom.style.display="block";
+    province=pName;
+    $('#province-name').html(province+"疫情信息");
+    initProvinceDigital();
     //这写省份的js都是通过在线构建工具生成的，保存在本地，需要时加载使用即可，最好不要一开始全部直接引入。
     loadBdScript('$' + Chinese_ + 'JS', './js/map/province/' + Chinese_ + '.js', function () {
         initEcharts(pName, Chinese_);
@@ -4021,36 +4011,64 @@ $('#datetimepicker1').datetimepicker({
     todayHighlight: 1,
     format: 'yyyy-mm-dd',
     startDate: '2019-11-01'
+}).on('changeDate',function(ev){
+    var  time=$('#datetimepicker1').find("input").val();
+    if(time!=''){
+        initNationalDigital();
+    }
 });
 
-$("#datetimepicker1").datetimepicker("setDate", new Date() );  //设置显示默认当天的时间
+$("#datetimepicker1").datetimepicker("setDate", new Date() );
+
+$('#datetimepicker2').datetimepicker({
+    language:  'zh-CN',
+    todayBtn: 1,
+    autoclose: 1,
+    forceParse: 0,
+    minView: "month",
+    todayHighlight: 1,
+    format: 'yyyy-mm-dd',
+    startDate: '2019-11-01'
+}).on('changeDate',function(ev){
+    var  time=$('#datetimepicker2').find("input").val();
+    if(time!=''){
+        initProvinceDigital();
+    }
+});
+
+$("#datetimepicker2").datetimepicker("setDate", new Date() );
 
 
 //------------------------------------------------------------------------------//
 
 /*
 * 设置全国数字疫情
+*
+* $('#datetimepicker1').find("input").val()
 * */
 initNationalDigital();
 function initNationalDigital(){
     $.ajax({
         type:'get',
-        url:'./local/whole-count.json',
+        url:'http://localhost:8080/current',
+        data:{
+            date:$('#datetimepicker1').find("input").val()
+        },
         dataType:'json',
-        success:function(data){
-            document.getElementById("definite-count-content").innerHTML=data["currentConfirmedCount"];
-            document.getElementById("suspected-count-content").innerHTML=data["suspectedCount"];
-            document.getElementById("severe-count-content").innerHTML=data["seriousCount"];
-            document.getElementById("sum-definite-count-content").innerHTML=data["confirmedCount"];
-            document.getElementById("sum-cure-count-content").innerHTML=data["curedCount"];
-            document.getElementById("sum-dead-count-content").innerHTML=data["deadCount"];
+        success:function(result){
+            document.getElementById("definite-count-content").innerHTML=result["currentConfirmedCount"];
+            document.getElementById("suspected-count-content").innerHTML=result["suspectedCount"];
+            document.getElementById("severe-count-content").innerHTML=result["seriousCount"];
+            document.getElementById("sum-definite-count-content").innerHTML=result["confirmedCount"];
+            document.getElementById("sum-cure-count-content").innerHTML=result["curedCount"];
+            document.getElementById("sum-dead-count-content").innerHTML=result["deadCount"];
 
-            document.getElementById("definite-count-change").innerHTML=data["currentConfirmedIncr"]>0?"+"+data["currentConfirmedIncr"]:data["currentConfirmedIncr"];
-            document.getElementById("suspected-count-change").innerHTML=data["suspectedIncr"]>0?"+"+data["suspectedIncr"]:data["suspectedIncr"];
-            document.getElementById("severe-count-change").innerHTML=data["seriousIncr"]>0?"+"+data["seriousIncr"]:data["seriousIncr"];
-            document.getElementById("sum-definite-count-change").innerHTML=data["confirmedIncr"]>0?"+"+data["confirmedIncr"]:data["confirmedIncr"];
-            document.getElementById("sum-cure-count-change").innerHTML=data["curedIncr"]>0?"+"+data["curedIncr"]:data["curedIncr"];
-            document.getElementById("sum-dead-count-change").innerHTML=data["deadIncr"]>0?"+"+data["deadIncr"]:data["deadIncr"];
+            document.getElementById("definite-count-change").innerHTML=result["currentConfirmedIncr"]>0?"+"+result["currentConfirmedIncr"]:result["currentConfirmedIncr"];
+            document.getElementById("suspected-count-change").innerHTML=result["suspectedIncr"]>0?"+"+result["suspectedIncr"]:result["suspectedIncr"];
+            document.getElementById("severe-count-change").innerHTML=result["seriousIncr"]>0?"+"+result["seriousIncr"]:result["seriousIncr"];
+            document.getElementById("sum-definite-count-change").innerHTML=result["confirmedIncr"]>0?"+"+result["confirmedIncr"]:result["confirmedIncr"];
+            document.getElementById("sum-cure-count-change").innerHTML=result["curedIncr"]>0?"+"+result["curedIncr"]:result["curedIncr"];
+            document.getElementById("sum-dead-count-change").innerHTML=result["deadIncr"]>0?"+"+result["deadIncr"]:result["deadIncr"];
         }
     });
 }
@@ -4072,6 +4090,34 @@ document.getElementById("sum-definite-bt").onclick=function () {
 };
 
 //---------------------------------------------------------------------------------------------//
+
+/*
+* 设置省份数字疫情
+*
+* info: {name:province,date:$('#datetimepicker2').find("input").val()}
+* */
+function initProvinceDigital(){
+    var jsonData = {"name": province, "date": $('#datetimepicker2').find("input").val()};
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "http://localhost:8080/specailProvince",
+        data: JSON.stringify(jsonData),
+        dataType: "json",
+        success: function(result) {
+            document.getElementById("province-definite-count-content").innerHTML=result["confirmedCount"];
+            document.getElementById("province-suspected-count-content").innerHTML=result["suspectedCount"];
+            document.getElementById("province-cure-count-content").innerHTML=result["curedCount"];
+            document.getElementById("province-dead-count-content").innerHTML=result["deadCount"];
+
+            document.getElementById("province-definite-count-change").innerHTML=result["currentConfirmedIncr"]>0?"+"+result["currentConfirmedIncr"]:result["currentConfirmedIncr"];
+            document.getElementById("province-suspected-count-change").innerHTML=result["suspectedIncr"]>0?"+"+result["suspectedIncr"]:result["suspectedIncr"];
+            document.getElementById("province-care-count-change").innerHTML=result["curedIncr"]>0?"+"+result["curedIncr"]:result["curedIncr"];
+            document.getElementById("province-dead-count-change").innerHTML=result["deadIncr"]>0?"+"+result["deadIncr"]:result["deadIncr"];
+        }
+    });
+}
+
 
 /*
 * 曲线图新增确诊按钮
