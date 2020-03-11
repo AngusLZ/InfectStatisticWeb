@@ -51,6 +51,12 @@ public class InfectMainController {
         return json;
     }
 
+    @ApiOperation(value = "配置启动")
+    @GetMapping("/start")
+    public void start(){
+        infectService.setDb();
+    }
+
     @ApiOperation(value = "发送国家的具体信息")
     @GetMapping("/current")
     public String current(@RequestParam("date")String date){

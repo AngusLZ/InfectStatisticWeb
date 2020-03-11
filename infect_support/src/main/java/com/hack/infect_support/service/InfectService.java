@@ -7,6 +7,8 @@ package com.hack.infect_support.service;
  */
 
 public interface InfectService {
+    void setDb();
+
     String getCountry(String date);
 
     String getAllProvince(String date);

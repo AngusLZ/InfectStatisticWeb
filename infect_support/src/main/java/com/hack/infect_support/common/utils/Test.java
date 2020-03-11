@@ -42,7 +42,6 @@ public class Test {
             String jsonResult = new Info().request(httpUrl, "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + now);
             provincesHashmap.put(now , jsonResult);
 
-
             String httpUrlC = "http://api.tianapi.com/txapi/ncov/index";
             String jsonResultC = new Info().request(httpUrlC , "key=c4ca7b7ef10ab54850c72e72e7693567&date="+now);
             countryHashmap.put(now ,jsonResultC);
