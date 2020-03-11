@@ -1,7 +1,4 @@
-package com.hack.infect_support.dto;
-
-import java.awt.*;
-import java.util.List;
+package com.hack.infect_support.domain;
 
 /**
  * @author 会飞的大野鸡
@@ -9,27 +6,39 @@ import java.util.List;
  * TODO:
  */
 
-public class Province extends ProvinceCut {
-//    确证人数
+public class Country {
+//    现存确证人数
+    private int currentConfirmedCount;
+//    累计确证人数
     private int confirmedCount;
-//    疑似病例
+//    现存疑似人数
     private int suspectedCount;
-//    治愈病例
+//    累计治愈人数
     private int curedCount;
-//    死亡病例
+//    累计死亡人数
     private int deadCount;
+//    现存重症人数
+    private int seriousCount;
 //    相比昨天的现存确证人数
     private int currentConfirmedIncr;
-//    较昨日的累计确证人数
+//    相比昨天的累计确证人数
     private int confirmedIncr;
-//    较昨日的疑似病例
+//    新增的疑似人数
     private int suspectedIncr;
-//    较昨日的治愈病例
+//    相比昨天新增治愈人数
     private int curedIncr;
-//    较昨日的死亡病例
+//    相比昨天新增死亡人数
     private int deadIncr;
-    //
-    private List<City> cityList;
+//    相比昨天新增重症人数
+    private int seriousIncr;
+
+    public int getCurrentConfirmedCount() {
+        return currentConfirmedCount;
+    }
+
+    public void setCurrentConfirmedCount(int currentConfirmedCount) {
+        this.currentConfirmedCount = currentConfirmedCount;
+    }
 
     public int getConfirmedCount() {
         return confirmedCount;
@@ -37,22 +46,6 @@ public class Province extends ProvinceCut {
 
     public void setConfirmedCount(int confirmedCount) {
         this.confirmedCount = confirmedCount;
-    }
-
-    public int getCurrentConfirmedIncr() {
-        return currentConfirmedIncr;
-    }
-
-    public void setCurrentConfirmedIncr(int currentConfirmedIncr) {
-        this.currentConfirmedIncr = currentConfirmedIncr;
-    }
-
-    public List<City> getCityList() {
-        return cityList;
-    }
-
-    public void setCityList(List<City> cityList) {
-        this.cityList = cityList;
     }
 
     public int getSuspectedCount() {
@@ -77,6 +70,22 @@ public class Province extends ProvinceCut {
 
     public void setDeadCount(int deadCount) {
         this.deadCount = deadCount;
+    }
+
+    public int getSeriousCount() {
+        return seriousCount;
+    }
+
+    public void setSeriousCount(int seriousCount) {
+        this.seriousCount = seriousCount;
+    }
+
+    public int getCurrentConfirmedIncr() {
+        return currentConfirmedIncr;
+    }
+
+    public void setCurrentConfirmedIncr(int currentConfirmedIncr) {
+        this.currentConfirmedIncr = currentConfirmedIncr;
     }
 
     public int getConfirmedIncr() {
@@ -111,17 +120,29 @@ public class Province extends ProvinceCut {
         this.deadIncr = deadIncr;
     }
 
+    public int getSeriousIncr() {
+        return seriousIncr;
+    }
+
+    public void setSeriousIncr(int seriousIncr) {
+        this.seriousIncr = seriousIncr;
+    }
+
     @Override
     public String toString() {
-        return "Province{" +
-                "suspectedCount=" + suspectedCount +
+        return "Country{" +
+                "currentConfirmedCount=" + currentConfirmedCount +
+                ", confirmedCount=" + confirmedCount +
+                ", suspectedCount=" + suspectedCount +
                 ", curedCount=" + curedCount +
                 ", deadCount=" + deadCount +
+                ", seriousCount=" + seriousCount +
+                ", currentConfirmedIncr=" + currentConfirmedIncr +
                 ", confirmedIncr=" + confirmedIncr +
                 ", suspectedIncr=" + suspectedIncr +
                 ", curedIncr=" + curedIncr +
                 ", deadIncr=" + deadIncr +
-                ", cityList=" + cityList +
+                ", seriousIncr=" + seriousIncr +
                 '}';
     }
 }

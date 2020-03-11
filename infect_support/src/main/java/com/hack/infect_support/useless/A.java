@@ -3,6 +3,7 @@ package com.hack.infect_support.useless;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.hack.infect_support.common.utils.EasyDb;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -17,6 +18,13 @@ import java.net.URL;
  */
 
 public class A {
+
+    public void aa(){
+        System.out.println(EasyDb.provinceHashMap);
+        System.out.println("分割线");
+        System.out.println(EasyDb.countryHashMap);
+    }
+
     public static void main(String[] args) {
         String httpUrl = "http://api.tianapi.com/txapi/ncov/index";
         String jsonResult = request(httpUrl , "key=c4ca7b7ef10ab54850c72e72e7693567");

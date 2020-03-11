@@ -11,6 +11,8 @@ public interface InfectService {
 
     String getAllProvince(String date);
 
+    String getProvinceConfirmed(String date);
+
     String getSpecialProvince(String info);
 
     String getCities(String info);

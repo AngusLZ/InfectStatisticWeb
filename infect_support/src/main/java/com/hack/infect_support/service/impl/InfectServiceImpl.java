@@ -5,13 +5,11 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hack.infect_support.common.utils.DateGet;
 import com.hack.infect_support.common.utils.Info;
-import com.hack.infect_support.dto.City;
-import com.hack.infect_support.dto.Country;
-import com.hack.infect_support.dto.Province;
-import com.hack.infect_support.dto.ProvinceCut;
+import com.hack.infect_support.domain.*;
 import com.hack.infect_support.service.InfectService;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,7 +55,7 @@ public class InfectServiceImpl implements InfectService {
 
         return jsonString;
     }
-//    获得各省市具体的确证数量
+//    获得各省具体的确证数量
     public String getAllProvince(String date) {
         String httpUrl = "http://api.tianapi.com/txapi/ncovcity/index";
         String jsonResult = new Info().request(httpUrl, "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + date);
@@ -73,6 +71,27 @@ public class InfectServiceImpl implements InfectService {
             ProvinceCut provinceCut = new ProvinceCut();
             provinceCut.setName(String.valueOf(jsonObject1.get("provinceShortName")));
             provinceCut.setCurrentConfirmedCount(Integer.parseInt(String.valueOf(jsonObject1.get("currentConfirmedCount"))));
+            provinceCuts.add(provinceCut);
+        }
+        String js = JSON.toJSONString(provinceCuts);
+        return js;
+    }
+//    获得各省的累计确证数
+    public String getProvinceConfirmed(String date){
+        String httpUrl = "http://api.tianapi.com/txapi/ncovcity/index";
+        String jsonResult = new Info().request(httpUrl, "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + date);
+        JSONObject jsonObject = JSON.parseObject(jsonResult);
+//        System.out.println(jsonResult);
+        Object o = jsonObject.get("newslist");
+//        System.out.println(o);
+        JSONArray jsonArray = JSON.parseArray(o + "");
+        List<ProvinceCut> provinceCuts = new LinkedList<ProvinceCut>();
+        for (int i = 0; i < jsonArray.size(); i++) {
+            Object n1 = jsonArray.get(i);
+            JSONObject jsonObject1 = JSON.parseObject(n1 + "");
+            ProvinceCut provinceCut = new ProvinceCut();
+            provinceCut.setName(String.valueOf(jsonObject1.get("provinceShortName")));
+            provinceCut.setCurrentConfirmedCount(Integer.parseInt(String.valueOf(jsonObject1.get("confirmedCount"))));
             provinceCuts.add(provinceCut);
         }
         String js = JSON.toJSONString(provinceCuts);
@@ -170,58 +189,81 @@ public class InfectServiceImpl implements InfectService {
 
         return infoo;
     }
-//    省份的三十天以内数据
-    public String getNumbers(String name , String type){
+//    省份的二十天以内数据
+//    !!!数据是从今天往后面倒推
+    public String getProvinceNumbers(String name){
         String now = new DateGet().getNow();
-        List<Integer> integers = new LinkedList<Integer>();
-        for (int j = 0 ; j < 30 ; j++) {
+        List<ImgInfo> imgInfos = new LinkedList<ImgInfo>();
+        for (int j = 0 ; j < 20 ; j++) {
             String httpUrl = "http://api.tianapi.com/txapi/ncovcity/index";
             String jsonResult = new Info().request(httpUrl, "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + now);
             JSONObject jsonObject = JSON.parseObject(jsonResult);
             Object o = jsonObject.get("newslist");
             JSONArray jsonArray = JSON.parseArray(o+"");
-            System.out.println(now);
+//            System.out.println(now);
             for (int i = 0 ; i < jsonArray.size() ; i++){
                 Object n1 = jsonArray.get(i);
                 JSONObject jsonObject1 = JSON.parseObject(n1+"");
                 if (String.valueOf(jsonObject1.get("provinceShortName")).equals(name)) {
-                    integers.add((Integer) jsonObject1.get(type));
+                    ImgInfo imgInfo = new ImgInfo();
+                    imgInfo.setDate(now);
+                    imgInfo.setCurrentConfirmedCount((Integer) jsonObject1.get("currentConfirmedCount"));
+                    imgInfo.setCuredCount((Integer) jsonObject1.get("curedCount"));
+                    imgInfo.setSuspectedCount((Integer) jsonObject1.get("suspectedCount"));
+                    imgInfo.setDeadCount((Integer) jsonObject1.get("deadCount"));
+                    imgInfos.add(imgInfo);
+                    break;
                 }
-                System.out.println(JSON.toJSONString(integers));
-                break;
             }
             now = new DateGet().getDay(now , -1);
         }
-        String info = JSON.toJSONString(integers);
+        String info = JSON.toJSONString(imgInfos);
         return info;
     }
+//    国家的二十天以内的数据
+    public String getCountryNumbers(){
+        String now = new DateGet().getNow();
+        List<ImgInfo> imgInfos = new LinkedList<>();
+        for (int i = 0 ; i < 20 ; i++) {
+            String httpUrl = "http://api.tianapi.com/txapi/ncov/index";
+            String jsonResult = new Info().request(httpUrl, "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + now);
+
+            JSONObject jsonObject = JSON.parseObject(jsonResult);
+            Object j = jsonObject.get("newslist");
+            JSONArray jsonArray = JSON.parseArray(j + "");
+            Object n1 = jsonArray.get(0);
+
+            JSONObject jsonObject1 = JSON.parseObject(n1 + "");
+            Object n2 = jsonObject1.get("desc");
+
+            JSONObject jsonObject2 = JSON.parseObject(n2 + "");
+            ImgInfo imgInfo = new ImgInfo();
+            imgInfo.setCurrentConfirmedCount((Integer) jsonObject2.get("currentConfirmedCount"));
+            imgInfo.setCuredCount((Integer) jsonObject2.get("curedCount"));
+            imgInfo.setSuspectedCount((Integer) jsonObject2.get("suspectedCount"));
+            imgInfo.setDeadCount((Integer) jsonObject2.get("deadCount"));
+            imgInfos.add(imgInfo);
+
+            now = new DateGet().getDay(now , -1);
+        }
+        String jsonString = JSON.toJSONString(imgInfos);
+
+        return jsonString;
+    }
+
+
 
 //    上面四个的汇总
     public String ImgInfo(String info){
         JSONObject object = JSON.parseObject(info);
         String name = String.valueOf(object.get("name"));
-        String type = String.valueOf(object.get("type"));
         String result = null;
 
-        result = getNumbers(name , type);
+        if (!name.equals("全国")) {
+            result = getProvinceNumbers(name);
+        }else {
+            result = getCountryNumbers();
+        }
         return result;
     }
 }
-
-//
-//    //    获得从1月23到今日的确证人数
-//    public String getCurrentConfirmedCountfromBefore(String name){
-//        return null;
-//    }
-//    //    获得从1月23到今日的疑似人数
-//    public String getSuspectedCountFromBefore(String name){
-//        return null;
-//    }
-//    //    获得从1月23到今日的治愈人数
-//    public String getCuredCountFromBefore(String name){
-//        return null;
-//    }
-//    //    获得从1月23到今日的死亡人数
-//    public String getDeadCountFromBefore(String name){
-//        return null;
-//    }

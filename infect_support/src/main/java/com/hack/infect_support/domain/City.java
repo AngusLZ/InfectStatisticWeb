@@ -1,4 +1,4 @@
-package com.hack.infect_support.dto;
+package com.hack.infect_support.domain;
 
 /**
  * @author 会飞的大野鸡

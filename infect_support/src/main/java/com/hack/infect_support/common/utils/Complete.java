@@ -3,8 +3,8 @@ package com.hack.infect_support.common.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.hack.infect_support.dto.Country;
-import com.hack.infect_support.dto.ProvinceCut;
+import com.hack.infect_support.domain.Country;
+import com.hack.infect_support.domain.ProvinceCut;
 
 import java.util.LinkedList;
 import java.util.List;

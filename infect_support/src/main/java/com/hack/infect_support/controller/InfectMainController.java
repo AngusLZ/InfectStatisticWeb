@@ -1,19 +1,12 @@
 package com.hack.infect_support.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.hack.infect_support.dto.Country;
-import com.hack.infect_support.dto.Province;
-import com.hack.infect_support.dto.ProvinceCut;
+import com.hack.infect_support.domain.Province;
 import com.hack.infect_support.service.InfectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author 会飞的大野鸡
@@ -23,6 +16,7 @@ import java.util.List;
 
 @Api(tags = "InfectMainController" , description = "完成基础功能两个页面的接口")
 @RestController
+@CrossOrigin
 public class InfectMainController {
 
     @Autowired
@@ -68,6 +62,13 @@ public class InfectMainController {
     @GetMapping("/provices")
     public String provinces(@RequestParam("date")String date){
         String info = infectService.getAllProvince(date);
+        return info;
+    }
+
+    @ApiOperation(value = "发送各个省市的累计确证人数")
+    @GetMapping("/provincesConfirmedCount")
+    public String provincesConfirmedCount(@RequestParam("date")String date){
+        String info = infectService.getProvinceConfirmed(date);
         return info;
     }
 
