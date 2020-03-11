@@ -199,7 +199,6 @@ document.getElementById("whole").onclick = function () {
 /*
 * 初始化地图
 * */
-initEcharts("china", "中国");
 function initEcharts(pName, Chinese_,type=1) {
     var tmpSeriesData = [];
     if (pName === 'china') {
@@ -223,7 +222,6 @@ function initEcharts(pName, Chinese_,type=1) {
                             name: item.name,
                             value: item.currentConfirmedCount
                         };
-
                         tmpSeriesData.push(ser);
                     });
                 }
@@ -284,10 +282,11 @@ function initEcharts(pName, Chinese_,type=1) {
     }
 
     var pieces = pName === "china" ? chinaPieces : proPieces;
+    var name=pName === "china" ? "中国" : pName;
 
     var option = {
         title: {
-            text: pName + '疫情图',
+            text: name + '疫情图',
             left: 'center'
         },
         tooltip: {
@@ -475,6 +474,8 @@ function initNationalDigital(){
         }
     });
 }
+
+initEcharts("china", "中国",1);
 
 //-----------------------------------------------------------------------------------------//
 
