@@ -1,5 +1,5 @@
 HELP.md
-target/
+target
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
@@ -35,8 +35,6 @@ build/
 ### Example user template
 
 # IntelliJ project files
-.idea
-*.iml
 out
 gen
 .idea/
