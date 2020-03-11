@@ -7,6 +7,7 @@ import com.hack.infect_support.common.utils.DateGet;
 import com.hack.infect_support.common.utils.Info;
 import com.hack.infect_support.domain.*;
 import com.hack.infect_support.service.InfectService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.awt.*;
@@ -22,20 +23,23 @@ import java.util.List;
 
 @Service
 public class InfectServiceImpl implements InfectService {
-    public HashMap<String , String> countryHashMap = new HashMap<>();
-    public HashMap<String , String> provincesHashMap = new HashMap<>();
+
+    @Value("${key}")
+    private String key;
+    public static HashMap<String , String> countryHashMap = new HashMap<>();
+    public static HashMap<String , String> provincesHashMap = new HashMap<>();
 
     public void setDb(){
         String now = new DateGet().getNow();
-        if (countryHashMap.size() == 0 || provincesHashMap.size() == 0) {
+        if (countryHashMap.size() == 0 || provincesHashMap.size() == 0 || !countryHashMap.containsKey(now) || !provincesHashMap.containsKey(now) ) {
             countryHashMap.clear(); provincesHashMap.clear();
             for (int j = 0; j < 20; j++) {
                 String httpUrl = "http://api.tianapi.com/txapi/ncovcity/index";
-                String jsonResult = new Info().request(httpUrl, "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + now);
+                String jsonResult = new Info().request(httpUrl, "key=" + key + "&date=" + now);
                 provincesHashMap.put(now, jsonResult);
 
                 String httpUrlC = "http://api.tianapi.com/txapi/ncov/index";
-                String jsonResultC = new Info().request(httpUrlC, "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + now);
+                String jsonResultC = new Info().request(httpUrlC, "key=" + key + "&date=" + now);
                 countryHashMap.put(now, jsonResultC);
 
                 now = new DateGet().getDay(now, -1);
@@ -46,20 +50,15 @@ public class InfectServiceImpl implements InfectService {
 
 //    获得国家级别的疫情信息
     public String getCountry(String date){
-//        String httpUrl = "http://api.tianapi.com/txapi/ncov/index";
-//        String jsonResult = new Info().request(httpUrl , "key=c4ca7b7ef10ab54850c72e72e7693567&date="+date);
         String jsonResult = countryHashMap.get(date);
 //        System.out.println(jsonResult);
 
         JSONObject jsonObject = JSON.parseObject(jsonResult);
         Object j = jsonObject.get("newslist");
-//        System.out.println(j);
         JSONArray jsonArray = JSON.parseArray(j+"");
         Object n1 = jsonArray.get(0);
-//        System.out.println("n1: " + n1);
         JSONObject jsonObject1 = JSON.parseObject(n1+"");
         Object n2 = jsonObject1.get("desc");
-//        System.out.println("n2: " + n2);
         JSONObject jsonObject2 = JSON.parseObject(n2 + "");
         Country country = new Country();
         country.setConfirmedCount((Integer) jsonObject2.get("confirmedCount"));
@@ -81,13 +80,9 @@ public class InfectServiceImpl implements InfectService {
     }
 //    获得各省具体的确证数量
     public String getAllProvince(String date) {
-//        String httpUrl = "http://api.tianapi.com/txapi/ncovcity/index";
-//        String jsonResult = new Info().request(httpUrl, "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + date);
         String jsonResult = provincesHashMap.get(date);
         JSONObject jsonObject = JSON.parseObject(jsonResult);
-//        System.out.println(jsonResult);
         Object o = jsonObject.get("newslist");
-//        System.out.println(o);
         JSONArray jsonArray = JSON.parseArray(o + "");
         List<ProvinceCut> provinceCuts = new LinkedList<ProvinceCut>();
         for (int i = 0; i < jsonArray.size(); i++) {
@@ -103,8 +98,6 @@ public class InfectServiceImpl implements InfectService {
     }
 //    获得各省的累计确证数
     public String getProvinceConfirmed(String date){
-//        String httpUrl = "http://api.tianapi.com/txapi/ncovcity/index";
-//        String jsonResult = new Info().request(httpUrl, "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + date);
         String jsonResult = provincesHashMap.get(date);
         JSONObject jsonObject = JSON.parseObject(jsonResult);
 //        System.out.println(jsonResult);
@@ -131,9 +124,6 @@ public class InfectServiceImpl implements InfectService {
 
         String yesterday = new DateGet().getDay(date , -1);
 
-//        String httpUrl = "http://api.tianapi.com/txapi/ncovcity/index";
-//        String jsonResult = new Info().request(httpUrl , "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + date);
-//        String jsonResultY = new Info().request(httpUrl , "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + yesterday);
         String jsonResult = provincesHashMap.get(date);
         String jsonResultY = provincesHashMap.get(yesterday);
         JSONObject jsonObject = JSON.parseObject(jsonResult);
@@ -178,9 +168,6 @@ public class InfectServiceImpl implements InfectService {
         String name = String.valueOf(object.get("name"));
         String date = String.valueOf(object.get("date"));
 
-//        String d = new DateGet().getDay(now , -1);
-//        String httpUrl = "http://api.tianapi.com/txapi/ncovcity/index";
-//        String jsonResult = new Info().request(httpUrl , "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + date);
         String jsonResult = provincesHashMap.get(date);
         JSONObject jsonObject = JSON.parseObject(jsonResult);
 //        System.out.println(jsonResult);
@@ -237,8 +224,6 @@ public class InfectServiceImpl implements InfectService {
         String now = new DateGet().getNow();
         List<ImgInfo> imgInfos = new LinkedList<ImgInfo>();
         for (int j = 0 ; j < 20 ; j++) {
-//            String httpUrl = "http://api.tianapi.com/txapi/ncovcity/index";
-//            String jsonResult = new Info().request(httpUrl, "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + now);
             String jsonResult = provincesHashMap.get(now);
             JSONObject jsonObject = JSON.parseObject(jsonResult);
             Object o = jsonObject.get("newslist");
@@ -268,8 +253,6 @@ public class InfectServiceImpl implements InfectService {
         String now = new DateGet().getNow();
         List<ImgInfo> imgInfos = new LinkedList<>();
         for (int i = 0 ; i < 20 ; i++) {
-//            String httpUrl = "http://api.tianapi.com/txapi/ncov/index";
-//            String jsonResult = new Info().request(httpUrl, "key=c4ca7b7ef10ab54850c72e72e7693567&date=" + now);
             String jsonResult = countryHashMap.get(now);
 
             JSONObject jsonObject = JSON.parseObject(jsonResult);
