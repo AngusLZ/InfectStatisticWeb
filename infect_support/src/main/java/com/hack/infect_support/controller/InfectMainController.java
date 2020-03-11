@@ -22,35 +22,6 @@ public class InfectMainController {
     @Autowired
     private InfectService infectService;
 
-    @ApiOperation(value = "test")
-    @GetMapping("/t")
-    public String t(){
-
-//        Country country = new Country();
-//        country.setConfirmedCount(111);
-//        String json = JSON.toJSONString(country);
-
-
-//        List<ProvinceCut> provinceCuts = new LinkedList<>();
-//
-//        ProvinceCut provinceCut1 = new ProvinceCut();
-//        provinceCut1.setConfirmedCount(111);
-//        provinceCut1.setName("湖北");
-//        provinceCuts.add(provinceCut1);
-//
-//        ProvinceCut provinceCut2 = new ProvinceCut();
-//        provinceCut2.setName("福建");
-//        provinceCut2.setConfirmedCount(222);
-//        provinceCuts.add(provinceCut2);
-
-        Province province = new Province();
-        province.setCuredCount(1);
-        province.setName("s");
-
-        String json = JSON.toJSONString(province);
-        return json;
-    }
-
     @ApiOperation(value = "配置启动")
     @GetMapping("/start")
     public void start(){

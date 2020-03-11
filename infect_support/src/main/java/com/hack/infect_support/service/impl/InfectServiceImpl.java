@@ -42,8 +42,6 @@ public class InfectServiceImpl implements InfectService {
             }
         }
         System.out.println("set small DB success");
-        System.out.println(countryHashMap);
-        System.out.println(provincesHashMap);
     }
 
 //    获得国家级别的疫情信息
