@@ -202,6 +202,7 @@ document.getElementById("whole").onclick = function () {
 * 初始化地图
 * */
 function initEcharts(pName, Chinese_,type=1) {
+
     var tmpSeriesData = [];
     if (pName === 'china') {
         flag=true;
@@ -424,8 +425,6 @@ $('#datetimepicker1').datetimepicker({
     }
 });
 
-$("#datetimepicker1").datetimepicker("setDate", new Date() );
-
 /*
 * 设置省份疫情日期
 * */
@@ -446,8 +445,9 @@ $('#datetimepicker2').datetimepicker({
     }
 });
 
-$("#datetimepicker2").datetimepicker("setDate", new Date() );
-
+$("#datetimepicker1").datetimepicker("setDate", new Date());
+$("#datetimepicker2").datetimepicker("setDate", new Date());
+$("#date-input2").attr("value","2020-03-11");
 
 //------------------------------------------------------------------------------//
 
