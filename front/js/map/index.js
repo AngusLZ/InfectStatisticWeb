@@ -244,7 +244,6 @@ function initEcharts(pName, Chinese_,type=1) {
                             name: item.name,
                             value: item.currentConfirmedCount
                         };
-
                         tmpSeriesData.push(ser);
                     });
                 }
@@ -295,8 +294,7 @@ function initEcharts(pName, Chinese_,type=1) {
                 var value = (params.value + '').split('.');
                 value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,');
                 var nameTemp=params.seriesName==="china"?"中国":params.seriesName;
-                var valueTemp=value>0?value:0;
-                return nameTemp + '<br/>' + params.name + ': ' + valueTemp;
+                return nameTemp + '<br/>' + params.name + ': ' + value;
             }
         },
         visualMap: {
