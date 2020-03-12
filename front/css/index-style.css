@@ -63,27 +63,57 @@ body{
 }
 
 #definite-count-content{
+    font-size: large;
+    color: rgb(253, 107, 92);
+}
 
+#definite-count-change{
+    color: rgb(253, 107, 92);
 }
 
 #suspected-count-content{
+    font-size: large;
+    color: rgb(234, 146, 45);
+}
 
+#suspected-count-change{
+    color: rgb(234, 146, 45);
 }
 
 #severe-count-content{
-
+    font-size: large;
+    color: rgb(73, 110, 158);
 }
 
-#sum-definit-count-change{
+#severe-count-change{
+    color: rgb(73, 110, 158);
+}
 
+#sum-definite-count-content{
+    font-size: large;
+    color: rgb(230, 52, 57);
+}
+
+#sum-definite-count-change{
+    color: rgb(230, 52, 57);
+}
+
+#sum-cure-count-content{
+    font-size: large;
+    color: rgb(34, 174, 180);
 }
 
 #sum-cure-count-change{
+    color: rgb(34, 174, 180);
+}
 
+#sum-dead-count-content{
+    font-size: large;
+    color: rgb(122, 124, 128);
 }
 
 #sum-dead-count-change{
-
+    color: rgb(122, 124, 128);
 }
 
 .table{
@@ -134,4 +164,40 @@ body{
 
 #footer{
     text-align: center;
+}
+
+#province-definite-count-content{
+    font-size: large;
+    color: rgb(253, 107, 92);
+}
+
+#province-definite-count-change{
+    color: rgb(253, 107, 92);
+}
+
+#province-suspected-count-content{
+    font-size: large;
+    color: rgb(234, 146, 45);
+}
+
+#province-suspected-count-change{
+    color: rgb(234, 146, 45);
+}
+
+#province-cure-count-content{
+    font-size: large;
+    color: rgb(34, 174, 180);
+}
+
+#province-care-count-change{
+    color: rgb(34, 174, 180);
+}
+
+#province-dead-count-content{
+    font-size: large;
+    color: rgb(122, 124, 128);
+}
+
+#province-dead-count-change{
+    color: rgb(122, 124, 128);
 }

@@ -266,7 +266,6 @@ function initEcharts(pName, Chinese_,type=1) {
                             name: item.name,
                             value: item.currentConfirmedCount
                         };
-
                         tmpSeriesData.push(ser);
                     });
                 }else{
@@ -275,17 +274,14 @@ function initEcharts(pName, Chinese_,type=1) {
                             name: item.name,
                             value: item.confirmedCount
                         };
-
                         tmpSeriesData.push(ser);
                     })
                 }
             }
         });
     }
-
     var pieces = pName === "china" ? chinaPieces : proPieces;
     var name=pName === "china" ? "中国" : pName;
-
     var option = {
         title: {
             text: name + '疫情图',
@@ -293,12 +289,13 @@ function initEcharts(pName, Chinese_,type=1) {
         },
         tooltip: {
             trigger: 'item',
-            enterable:true,
             transitionDuration: 1,
             formatter: function (params) {
                 var value = (params.value + '').split('.');
                 value = value[0].replace(/(\d{1,3})(?=(?:\d{3})+(?!\d))/g, '$1,');
-                return params.seriesName + '<br/>' + params.name + ': ' + value+"hhh";
+                var nameTemp=params.seriesName==="china"?"中国":params.seriesName;
+                var valueTemp=value>0?value:0;
+                return nameTemp + '<br/>' + params.name + ': ' + valueTemp;
             }
         },
         visualMap: {
@@ -336,11 +333,8 @@ function initEcharts(pName, Chinese_,type=1) {
             }
         ]
     };
-
     myChart.setOption(option);
-
     myChart.off("click");
-
     if (pName === "china") { // 全国时，添加click 进入省级
         myChart.on('click', function (param) {
             //在本页面跳转
@@ -392,7 +386,7 @@ function loadBdScript(scriptId, url, callback) {
                 callback();
             }
         };
-    } else {  // Others
+    } else {
         script.onload = function () {
             callback();
         };
@@ -405,6 +399,13 @@ function loadBdScript(scriptId, url, callback) {
 
 //---------------------------------------------------------------------------------//
 
+function delay() {
+    return new Date(new Date().getTime()-24*60*60*19*1000);
+}
+
+/*
+* 设置全国疫情日期
+* */
 $('#datetimepicker1').datetimepicker({
     language:  'zh-CN',
     todayBtn: 1,
@@ -413,7 +414,8 @@ $('#datetimepicker1').datetimepicker({
     minView: "month",
     todayHighlight: 1,
     format: 'yyyy-mm-dd',
-    startDate: '2019-11-01'
+    startDate: delay(),
+    endDate:new Date()
 }).on('changeDate',function(ev){
     var  time=$('#datetimepicker1').find("input").val();
     if(time!=''){
@@ -424,6 +426,9 @@ $('#datetimepicker1').datetimepicker({
 
 $("#datetimepicker1").datetimepicker("setDate", new Date() );
 
+/*
+* 设置省份疫情日期
+* */
 $('#datetimepicker2').datetimepicker({
     language:  'zh-CN',
     todayBtn: 1,
@@ -432,7 +437,8 @@ $('#datetimepicker2').datetimepicker({
     minView: "month",
     todayHighlight: 1,
     format: 'yyyy-mm-dd',
-    startDate: '2019-11-01'
+    startDate: delay(),
+    endDate:new Date()
 }).on('changeDate',function(ev){
     var  time=$('#datetimepicker2').find("input").val();
     if(time!=''){
