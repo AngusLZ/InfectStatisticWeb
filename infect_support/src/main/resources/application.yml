@@ -1,2 +1,5 @@
 server:
   port: 8080
+
+#自定义
+key: c4ca7b7ef10ab54850c72e72e7693567
