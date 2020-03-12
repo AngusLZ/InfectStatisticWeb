@@ -30,6 +30,7 @@ public class InfectMainController {
 
     @ApiOperation(value = "发送国家的具体信息")
     @GetMapping("/current")
+    @CrossOrigin
     public String current(@RequestParam("date")String date){
         String info = infectService.getCountry(date);
         return info;

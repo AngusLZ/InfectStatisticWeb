@@ -27,6 +27,11 @@ body{
     filter:progid:DXImageTransform.Microsoft.Alpha(opacity=70);
 }
 
+.bg{
+    background: #BEE7E9;
+    border-radius: 10px
+}
+
 #wrap{
     background: #ffffff;
     margin: 0 auto;
@@ -126,6 +131,13 @@ body{
 }
 
 .nav.nav-pills{
+    display:table;
+    margin:0px auto;
+    text-align: center;
+}
+
+.nav.nav-pills:active{
+    color: #19CAAD;
     display:table;
     margin:0px auto;
     text-align: center;
