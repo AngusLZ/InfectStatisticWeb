@@ -1,3 +1,6 @@
+/*
+* 初始化后端
+* */
 $.ajax({
     type:'get',
     url:'http://localhost:8080/start',
@@ -202,7 +205,6 @@ document.getElementById("whole").onclick = function () {
 * 初始化地图
 * */
 function initEcharts(pName, Chinese_,type=1) {
-
     var tmpSeriesData = [];
     if (pName === 'china') {
         flag=true;
@@ -395,9 +397,9 @@ function loadBdScript(scriptId, url, callback) {
     document.getElementsByTagName("head")[0].appendChild(script);
 };
 
-
-//---------------------------------------------------------------------------------//
-
+/*
+* 返回日期选择器的开始时间
+* */
 function delay() {
     return new Date(new Date().getTime()-24*60*60*19*1000);
 }
@@ -467,8 +469,6 @@ $("#datetimepicker2").datetimepicker("setDate", new Date());
 $("#date-input1").attr("value",new Date().format('yyyy-MM-dd'));
 $("#date-input2").attr("value",new Date().format('yyyy-MM-dd'));
 
-//------------------------------------------------------------------------------//
-
 /*
 * 设置全国数字疫情
 *
@@ -503,7 +503,6 @@ function initNationalDigital(){
 
 initEcharts("china", "中国",1);
 
-//-----------------------------------------------------------------------------------------//
 
 /*
 * 地图现有确诊按钮
@@ -526,8 +525,6 @@ document.getElementById("sum-definite-bt").onclick=function () {
         initEcharts(province,"中国",2);
     }
 };
-
-//---------------------------------------------------------------------------------------------//
 
 /*
 * 设置省份数字疫情
@@ -577,8 +574,6 @@ document.getElementById("echart-sum-definite-bt").onclick=function () {
 document.getElementById("echart-cure-dead-bt").onclick=function () {
     initCureAndDeadLine();
 };
-
-//-----------------------------------------------------------------------------------------------//
 
 /*
 * 新增确诊曲线
@@ -765,7 +760,3 @@ function initCureAndDeadLine() {
 
 
 }
-
-//-----------------------------------------------------------------------------------------------//
-
-
