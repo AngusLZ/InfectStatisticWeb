@@ -28,6 +28,8 @@
 显示该省份之下的具体疫情信息情况。
 
 ### 四、构建和运行
-1.下载项目到本地
-2.使用java编译器打开infect_support文件夹。运行InfectSupportApplication.java文件。
-2.当后台项目完全启动后，打开front文件夹中的index.html即可。
+1.下载项目到本地  
+
+2.使用java编译器打开infect_support文件夹。运行InfectSupportApplication.java文件。  
+
+3.当后台项目完全启动后，打开front文件夹中的index.html即可。
