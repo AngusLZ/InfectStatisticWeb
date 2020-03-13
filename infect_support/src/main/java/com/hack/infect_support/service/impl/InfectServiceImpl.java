@@ -50,35 +50,43 @@ public class InfectServiceImpl implements InfectService {
 
 //    获得国家级别的疫情信息
     public String getCountry(String date){
+        String yesterday = new DateGet().getDay(date , -1);
         String jsonResult = countryHashMap.get(date);
+        String jsonResultY = countryHashMap.get(yesterday);
 //        System.out.println(jsonResult);
 
         JSONObject jsonObject = JSON.parseObject(jsonResult);
+        JSONObject jsonObjectY = JSON.parseObject(jsonResultY);
         Object j = jsonObject.get("newslist");
-        JSONArray jsonArray = JSON.parseArray(j+"");
+        Object jY = jsonObjectY.get("newslist");
+        JSONArray jsonArray = JSON.parseArray(j + "");
+        JSONArray jsonArrayY = JSON.parseArray(jY + "");
         Object n1 = jsonArray.get(0);
+        Object n1Y = jsonArrayY.get(0);
         JSONObject jsonObject1 = JSON.parseObject(n1+"");
+        JSONObject jsonObject1Y = JSON.parseObject(n1Y + "");
         Object n2 = jsonObject1.get("desc");
+        Object n2Y = jsonObject1Y.get("desc");
         JSONObject jsonObject2 = JSON.parseObject(n2 + "");
+        JSONObject jsonObject2Y = JSON.parseObject(n2Y + "");
         Country country = new Country();
         country.setConfirmedCount((Integer) jsonObject2.get("confirmedCount"));
-        if (jsonObject2.containsKey("confirmedIncr"))
-            country.setConfirmedIncr((Integer) jsonObject2.get("confirmedIncr"));
+        country.setConfirmedIncr((Integer) jsonObject2.get("confirmedCount") - (Integer) jsonObject2Y.get("confirmedCount"));
+
         country.setCuredCount((Integer) jsonObject2.get("curedCount"));
-        if (jsonObject2.containsKey("curedIncr"))
-            country.setCuredIncr((Integer) jsonObject2.get("curedIncr"));
+        country.setCuredIncr((Integer) jsonObject2.get("curedCount") - (Integer) jsonObject2Y.get("curedCount"));
+
         country.setCurrentConfirmedCount((Integer) jsonObject2.get("currentConfirmedCount"));
-        if (jsonObject2.containsKey("currentConfirmedIncr"))
-            country.setCurrentConfirmedIncr((Integer) jsonObject2.get("currentConfirmedIncr"));
+        country.setCurrentConfirmedIncr((Integer) jsonObject2.get("currentConfirmedCount") - (Integer) jsonObject2Y.get("currentConfirmedCount"));
+
         country.setDeadCount((Integer) jsonObject2.get("deadCount"));
-        if (jsonObject2.containsKey("deadIncr"))
-            country.setDeadIncr((Integer) jsonObject2.get("deadIncr"));
+        country.setDeadIncr((Integer) jsonObject2.get("deadCount") - (Integer) jsonObject2Y.get("deadCount"));
+
         country.setSeriousCount((Integer) jsonObject2.get("seriousCount"));
-        if (jsonObject2.containsKey("seriousIncr"))
-            country.setSeriousIncr((Integer) jsonObject2.get("seriousIncr"));
+        country.setSeriousIncr((Integer) jsonObject2.get("seriousCount") - (Integer) jsonObject2Y.get("seriousCount"));
+
         country.setSuspectedCount((Integer) jsonObject2.get("suspectedCount"));
-        if (jsonObject2.containsKey("suspectedIncr"))
-            country.setSuspectedIncr((Integer) jsonObject2.get("suspectedIncr"));
+        country.setSuspectedIncr((Integer) jsonObject2.get("suspectedCount") - (Integer) jsonObject2Y.get("suspectedCount"));
 
         String jsonString = JSON.toJSONString(country);
 
