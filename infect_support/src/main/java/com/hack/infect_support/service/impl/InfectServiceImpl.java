@@ -62,17 +62,23 @@ public class InfectServiceImpl implements InfectService {
         JSONObject jsonObject2 = JSON.parseObject(n2 + "");
         Country country = new Country();
         country.setConfirmedCount((Integer) jsonObject2.get("confirmedCount"));
-        country.setConfirmedIncr((Integer) jsonObject2.get("confirmedIncr"));
+        if (jsonObject2.containsKey("confirmedIncr"))
+            country.setConfirmedIncr((Integer) jsonObject2.get("confirmedIncr"));
         country.setCuredCount((Integer) jsonObject2.get("curedCount"));
-        country.setCuredIncr((Integer) jsonObject2.get("curedIncr"));
+        if (jsonObject2.containsKey("curedIncr"))
+            country.setCuredIncr((Integer) jsonObject2.get("curedIncr"));
         country.setCurrentConfirmedCount((Integer) jsonObject2.get("currentConfirmedCount"));
-        country.setCurrentConfirmedIncr((Integer) jsonObject2.get("currentConfirmedIncr"));
+        if (jsonObject2.containsKey("currentConfirmedIncr"))
+            country.setCurrentConfirmedIncr((Integer) jsonObject2.get("currentConfirmedIncr"));
         country.setDeadCount((Integer) jsonObject2.get("deadCount"));
-        country.setDeadIncr((Integer) jsonObject2.get("deadIncr"));
+        if (jsonObject2.containsKey("deadIncr"))
+            country.setDeadIncr((Integer) jsonObject2.get("deadIncr"));
         country.setSeriousCount((Integer) jsonObject2.get("seriousCount"));
-        country.setSeriousIncr((Integer) jsonObject2.get("seriousIncr"));
+        if (jsonObject2.containsKey("seriousIncr"))
+            country.setSeriousIncr((Integer) jsonObject2.get("seriousIncr"));
         country.setSuspectedCount((Integer) jsonObject2.get("suspectedCount"));
-        country.setSuspectedIncr((Integer) jsonObject2.get("suspectedIncr"));
+        if (jsonObject2.containsKey("suspectedIncr"))
+            country.setSuspectedIncr((Integer) jsonObject2.get("suspectedIncr"));
 
         String jsonString = JSON.toJSONString(country);
 
