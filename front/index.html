@@ -27,7 +27,7 @@
 <div id="wrap">
 
     <!-- 头部日期选择 -->
-    <div id="header" class="bg" >
+    <div class="bg" id="header">
         <div class='input-group date' id='datetimepicker1'>
             <table>
                 <tr style="text-align: center">
@@ -35,7 +35,7 @@
                         <p style="width:45px">截至</p>
                     </td>
                     <td>
-                        <input id="date-input1" type='text' class="form-control" style="height: 30px;width: 100px"/>
+                        <input class="form-control" id="date-input1" type='text' style="height: 30px;width: 100px"/>
                     </td>
                     <td>
                         <span class="input-group-addon" style="height: 30px;margin-top: 15px"><span class="glyphicon glyphicon-calendar"></span></span>
@@ -106,18 +106,14 @@
 
         <!-- 地图疫情板块 -->
         <div class="bg" style="padding:10px 5px" id="centre">
-
             <div>
                 <ul class="nav nav-pills">
                     <li class="active" id="definite-li"><a href="javascript:void(0)" id="definite-bt" data-toggle="tab">现有确诊</a></li>
                     <li id="sum-definite-li"><a href="javascript:void(0)" id="sum-definite-bt" data-toggle="tab">累计确诊</a></li>
                 </ul>
             </div>
-
             <button id="whole">返回全国</button>
-
             <div id="china-map">
-
             </div>
         </div>
 
@@ -186,7 +182,6 @@
         <!-- 图标疫情板块 -->
         <div class="bg" style="padding: 10px 5px;margin-top: 15px">
             <div id="chart-line">
-
             </div>
             <div>
                 <ul class="nav nav-pills" id="echart-change-button">
@@ -196,15 +191,12 @@
                 </ul>
             </div>
         </div>
-
     </div>
 
     <div id="footer">
         <p>Copyright &copy; 221701414 221701431 All rights reserved</p>
     </div>
 </div>
-
-
 <!-- 加载疫情地图 -->
 <script type="text/javascript" src="js/map/index.js"></script>
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
