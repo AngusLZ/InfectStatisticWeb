@@ -20,17 +20,17 @@ public class Country {
 //    现存重症人数
     private int seriousCount;
 //    相比昨天的现存确证人数
-    private int currentConfirmedIncr;
+    private int currentConfirmedIncr = 0;
 //    相比昨天的累计确证人数
-    private int confirmedIncr;
+    private int confirmedIncr = 0;
 //    新增的疑似人数
-    private int suspectedIncr;
+    private int suspectedIncr = 0;
 //    相比昨天新增治愈人数
-    private int curedIncr;
+    private int curedIncr = 0;
 //    相比昨天新增死亡人数
-    private int deadIncr;
+    private int deadIncr = 0;
 //    相比昨天新增重症人数
-    private int seriousIncr;
+    private int seriousIncr = 0;
 
     public int getCurrentConfirmedCount() {
         return currentConfirmedCount;
